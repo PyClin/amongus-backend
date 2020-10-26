@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_DB=amongus
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+
+  rabbitmq:
+    image: 'bitnami/rabbitmq:latest'
+    environment:
+      - RABBITMQ_DISK_FREE_RELATIVE_LIMIT=0.2
+#    expose:
+#      - "5672"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+#  web:
+#    build: .
+#    command: python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+#    volumes:
+#      - .:/code
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - db
+

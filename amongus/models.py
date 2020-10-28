@@ -52,6 +52,7 @@ class Tweet(models.Model):
 
 class PatternMapping(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='patterns', blank=True, null=True, on_delete=models.CASCADE)
+    # tweet - patternmapping one - one relationship
     tweet = models.ForeignKey(Tweet, related_name='patterns', blank=True, null=True, on_delete=models.CASCADE)
     pattern = models.TextField()
 

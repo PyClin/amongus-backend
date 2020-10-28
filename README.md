@@ -9,7 +9,7 @@ Create and activate your virtualenv
 Go to the root of the project (where manage.py is present)
 ```
 pip install -r requirements.txt
-``
+```
 
 ```
 python manage.py migrate

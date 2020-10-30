@@ -59,8 +59,8 @@ class TypingDnaHelper:
         url = f'{self.base_url}/match'
         api_key = settings.TYPING_DNA['api_key']
         api_secret = settings.TYPING_DNA['api_secret']
-        tp1 = pattern1
-        tp2 = pattern2
+        tp1 = pattern2
+        tp2 = pattern1
         quality = '2'
 
         authstring = '%s:%s' % (api_key, api_secret)

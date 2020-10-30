@@ -31,7 +31,7 @@ def post_user_creation_tasks(user_id: int, pattern: str):
 def add_tweet_to_aldini_ms(tweet_id, user_id):
     node_number = PatternMapping.objects.filter(
         user_id=user_id,
-        tweet_id=tweet_id
+        tweet_id__isnull=False
     ).count()
     try:
         AldiniGraphMSAdapter().add_tweet(tweet_id, user_id, node_number)

@@ -15,11 +15,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True, db_index=True)
     is_active = models.BooleanField(_('active'), default=True)
+    email = models.CharField(_('email_id'), max_length=100, blank=True, default='', db_index=True)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['email']
 
     class Meta:
         verbose_name = _('user')

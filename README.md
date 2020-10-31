@@ -19,4 +19,9 @@ python manage.py migrate
 python manage.py runserver 8000
 ```
 
+```
+celery -A amongus worker --loglevel=INFO -P solo -c 10
+
+```
+
 Get the .env file from Bhavesh and place it in the same directory as the manage.py file

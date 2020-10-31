@@ -1,5 +1,6 @@
 import base64
 import json
+import os
 import traceback
 
 import django.db
@@ -11,6 +12,9 @@ from rest_framework.status import is_success
 
 from amongus.models import PatternMapping
 
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
 
 class PatternCreationException(Exception):
     pass
@@ -18,6 +22,36 @@ class PatternCreationException(Exception):
 
 class TypingDnaException(Exception):
     pass
+
+
+class EmailHelper:
+    template_path = os.path.join(settings.BASE_DIR, "amongus/templates/did_you_tweet.html")
+    from_email = 'bhaveshpraveen10@gmail.com'
+
+    def get_data(self, **kwargs):
+        with open(self.template_path) as f:
+            file_content = f.read()
+
+        for key, val in kwargs.items():
+            file_content.replace(key, val)
+
+        return file_content
+
+    def send_email(self, email_id, **template_kwargs):
+        html_content = self.get_data(**template_kwargs)
+        message = Mail(
+            from_email=self.from_email,
+            to_emails=email_id,
+            subject='Did you just tweet?',
+            html_content=html_content)
+        try:
+            sg = SendGridAPIClient(settings.SENDGRID["api_secret"])
+            response = sg.send(message)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print('Not able to send email:', e)
 
 
 class PatternHelper:
@@ -294,6 +328,7 @@ class BackGroundTypingDnaTaskHelper:
     def tweet_verfication_failed_with_onboarding_pattern(self, user_id, tweet_id, confidence):
         try:
             AldiniGraphMSAdapter().add_tweet_unverified(user_id, tweet_id, confidence)
+            # todo: send email here
         except Exception:
             print(traceback.format_exc())
 

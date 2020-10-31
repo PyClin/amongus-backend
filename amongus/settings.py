@@ -30,7 +30,9 @@ SECRET_KEY = '=1c%)-uih&#!be9a3j=se0f$217)p*swpt1ecn)mwgb$i*daj*'
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 # change this
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "*"
+]
 
 
 # Application definition
@@ -189,4 +191,8 @@ CELERY_BROKER_URL = 'amqp://user:bitnami@localhost:5672/'
 # change this
 ALDINI_MS = {
     'url': 'http://127.0.0.1:8080'
+}
+
+SENDGRID = {
+    'api_secret': config('SENDGRID_SECRET', '')
 }

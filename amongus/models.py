@@ -10,7 +10,7 @@ from amongus.modelmanagers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(_('username'), max_length=10, unique=True, db_index=True)
+    username = models.CharField(_('username'), max_length=100, unique=True, db_index=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True, db_index=True)
